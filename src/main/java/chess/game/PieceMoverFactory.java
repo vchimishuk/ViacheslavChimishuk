@@ -12,7 +12,7 @@ import chess.game.pieces.Piece;
 import chess.game.pieces.Queen;
 import chess.game.pieces.Rook;
 
-public final class MoverFactory {
+public final class PieceMoverFactory {
     private static final Map<Class<? extends Piece>, PieceMover> MOVERS;
 
     static {
@@ -27,7 +27,7 @@ public final class MoverFactory {
         MOVERS = Collections.unmodifiableMap(m);
     }
 
-    private MoverFactory() {
+    private PieceMoverFactory() {
 
     }
 

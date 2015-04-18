@@ -20,7 +20,7 @@ public class Game {
 
     public List<Move> getAvailableMoves() {
         return state.getCurrentPlayerPieces().values().stream()
-                .flatMap(piece -> MoverFactory.getInstance(piece).getMoves(state, piece).stream())
+                .flatMap(piece -> PieceMoverFactory.getInstance(piece).getMoves(state, piece).stream())
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +51,7 @@ public class Game {
             throw new InvalidMoveException("You can't move opponents' figure.");
         }
 
-        List<Move> moves = MoverFactory.getInstance(piece).getMoves(state, piece);
+        List<Move> moves = PieceMoverFactory.getInstance(piece).getMoves(state, piece);
         int i = moves.indexOf(move);
         if (i == -1) {
             throw new InvalidMoveException("This figure can't move this way.");

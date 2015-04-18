@@ -1,8 +1,15 @@
 package chess;
 
-import chess.pieces.Piece;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.util.List;
+import java.util.Optional;
 
-import java.io.*;
+import chess.game.Game;
+import chess.pieces.Piece;
 
 /**
  * This class provides the basic CLI interface to the Chess game.
@@ -13,7 +20,7 @@ public class CLI {
     private final BufferedReader inReader;
     private final PrintStream outStream;
 
-    private GameState gameState = null;
+    private Game game;
 
     public CLI(InputStream inputStream, PrintStream outStream) {
         this.inReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -48,7 +55,7 @@ public class CLI {
 
         while (true) {
             showBoard();
-            writeOutput(gameState.getCurrentPlayer() + "'s Move");
+            writeOutput(game.getCurrentPlayer() + "'s Move");
 
             String input = getInput();
             if (input == null) {
@@ -64,7 +71,7 @@ public class CLI {
                 } else if (input.equals("board")) {
                     writeOutput("Current Game:");
                 } else if (input.equals("list")) {
-                    writeOutput("====> List Is Not Implemented (yet) <====");
+                    list();
                 } else if (input.startsWith("move")) {
                     writeOutput("====> Move Is Not Implemented (yet) <====");
                 } else {
@@ -75,8 +82,7 @@ public class CLI {
     }
 
     private void doNewGame() {
-        gameState = new GameState();
-        gameState.reset();
+        game = new Game();
     }
 
     private void showBoard() {
@@ -112,14 +118,26 @@ public class CLI {
         return builder.toString();
     }
 
+    private void list() {
+        List<Move> moves = game.getAvailableMoves();
+
+        if (moves.isEmpty()) {
+            writeOutput("You can't move! You are checkmated.");
+        } else {
+            writeOutput(game.getCurrentPlayer() + "'s Possible Moves:");
+
+            for (Move move : moves) {
+                writeOutput("\t" + move.getFrom() + " " + move.getTo());
+            }
+        }
+    }
 
     private void printSquares(int rowLabel, StringBuilder builder) {
         builder.append(rowLabel);
 
         for (char c = Position.MIN_COLUMN; c <= Position.MAX_COLUMN; c++) {
-            Piece piece = gameState.getPieceAt(String.valueOf(c) + rowLabel);
-            char pieceChar = piece == null ? ' ' : piece.getIdentifier();
-            builder.append(" | ").append(pieceChar);
+            Optional<Piece> piece = game.getPieceAt(new Position(c, rowLabel));
+            builder.append(" | ").append(piece.map(Piece::getIdentifier).orElse(' '));
         }
         builder.append(" | ").append(rowLabel).append(NEWLINE);
     }

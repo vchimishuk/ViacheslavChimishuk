@@ -138,7 +138,7 @@ The game should be able to detect when the game is over, either from a Checkmate
 
 ```Shell
 Black's Move
-> move d8 h4
+> move h4 e1
     a   b   c   d   e   f   g   h
   +---+---+---+---+---+---+---+---+
 8 | R | N | B |   | K | B | N | R | 8

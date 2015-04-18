@@ -76,9 +76,14 @@ public class CLI {
                     } else if (input.equals("list")) {
                         list();
                     } else if (input.startsWith("move")) {
+                        Player player = game.getCurrentPlayer();
                         List<Position> positions = parseMoveParameters(input.substring("move".length()).trim());
                         try {
-                            move(positions.get(0), positions.get(1));
+                            if (move(positions.get(0), positions.get(1))) {
+                                writeOutput("The game is over. Congrats to " + player + ".");
+                                showBoard();
+                                break;
+                            }
                         } catch (InvalidMoveException e) {
                             writeOutput(e.getMessage());
                         }
@@ -143,8 +148,8 @@ public class CLI {
         }
     }
 
-    private void move(Position from, Position to) throws InvalidMoveException {
-        game.move(new Move(from, to));
+    private boolean move(Position from, Position to) throws InvalidMoveException {
+        return game.move(new Move(from, to));
     }
 
     private void printSquares(int rowLabel, StringBuilder builder) {

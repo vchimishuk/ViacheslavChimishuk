@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import chess.Move;
 import chess.Player;
 import chess.Position;
+import chess.pieces.King;
 import chess.pieces.Piece;
 
 /**
@@ -34,7 +35,9 @@ public class Game {
         return state.getPieceAt(position);
     }
 
-    public void move(Move move) throws InvalidMoveException {
+    public boolean move(Move move) throws InvalidMoveException {
+        boolean won = false;
+
         if (!state.isPositionPresent(move.getFrom())) {
             throw new InvalidMoveException("Invalid start position " + move.getFrom());
         }
@@ -65,6 +68,9 @@ public class Game {
             if (enemy.getOwner() == getCurrentPlayer()) {
                 throw new InvalidMoveException("End position is busy");
             } else {
+                if (enemy instanceof King) {
+                    won = true;
+                }
                 state.removePiece(enemy);
             }
         }
@@ -73,6 +79,8 @@ public class Game {
         piece.setPosition(move.getTo());
         state.placePiece(piece);
         state.setPlayer(nextPlayer(state.getCurrentPlayer()));
+
+        return won;
     }
 
     private Player nextPlayer(Player current) {

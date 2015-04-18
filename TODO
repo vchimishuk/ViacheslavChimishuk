@@ -1,0 +1,10 @@
+* Future improvements.
+  * Test for every mover implementation.
+  * Test for Game class, which can tests checkmate detection, invalid moves handling,
+    figure taking, and other situations.
+  * I don't like GameState passing through all the methods and I belive it can
+    be refactored in such way that movers are created with injected GameState object.
+    Or sort of...
+  * Commands can be moved out from CLI class, -- generic Command interface and
+    separate implementation for every supported command.
+    It should be simpler to add new commands support after that.

@@ -20,8 +20,8 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public void move(Position position) {
-        super.move(position);
+    public void setPosition(Position position) {
+        super.setPosition(position);
         firstMove = false;
     }
 

@@ -7,6 +7,7 @@ import java.util.function.BiFunction;
 
 import chess.Move;
 import chess.Position;
+import chess.pieces.Piece;
 
 public abstract class AbstractPieceMover implements PieceMover {
     protected List<Move> getDirectionMoves(GameState state, Position start,
@@ -22,9 +23,16 @@ public abstract class AbstractPieceMover implements PieceMover {
             if (!newPosO.map(state::isPositionPresent).orElse(false)) {
                 break; // End of the board.
             }
-            if (!newPosO.map(state::isPositionFree).orElse(false)) {
-                break; // Someone standing on my way.
+
+            Optional<Piece> otherO = state.getPieceAt(newPosO.get());
+            // Someone standing on my way.
+            if (otherO.isPresent()) {
+                if (isEnemy(state, otherO.get())) {
+                    moves.add(new Move(start, moveO.map(Move::getTo).get()));
+                }
+                break;
             }
+
             pos = newPosO.get();
             moves.add(new Move(start, moveO.map(Move::getTo).get()));
         }
@@ -70,5 +78,15 @@ public abstract class AbstractPieceMover implements PieceMover {
         } else {
             return Optional.empty();
         }
+    }
+
+    private boolean isEnemy(GameState state, Piece piece) {
+        return state.getCurrentPlayer() != piece.getOwner();
+    }
+
+    protected boolean canMove(GameState state, Position position) {
+        Optional<Piece> other = state.getPieceAt(position);
+
+        return !other.isPresent() || other.get().getOwner() != state.getCurrentPlayer();
     }
 }

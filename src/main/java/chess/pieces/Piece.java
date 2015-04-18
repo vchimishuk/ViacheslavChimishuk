@@ -32,8 +32,8 @@ public abstract class Piece {
         return position;
     }
 
-    public void move(Position position) {
-        // TODO:
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     protected abstract char getIdentifyingCharacter();

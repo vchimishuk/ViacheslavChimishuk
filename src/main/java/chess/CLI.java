@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import chess.game.Game;
+import chess.game.InvalidMoveException;
 import chess.pieces.Piece;
 
 /**
@@ -54,29 +56,38 @@ public class CLI {
         doNewGame();
 
         while (true) {
-            showBoard();
-            writeOutput(game.getCurrentPlayer() + "'s Move");
+            try {
+                showBoard();
+                writeOutput(game.getCurrentPlayer() + "'s Move");
 
-            String input = getInput();
-            if (input == null) {
-                break; // No more input possible; this is the only way to exit the event loop
-            } else if (input.length() > 0) {
-                if (input.equals("help")) {
-                    showCommands();
-                } else if (input.equals("new")) {
-                    doNewGame();
-                } else if (input.equals("quit")) {
-                    writeOutput("Goodbye!");
-                    System.exit(0);
-                } else if (input.equals("board")) {
-                    writeOutput("Current Game:");
-                } else if (input.equals("list")) {
-                    list();
-                } else if (input.startsWith("move")) {
-                    writeOutput("====> Move Is Not Implemented (yet) <====");
-                } else {
-                    writeOutput("I didn't understand that.  Type 'help' for a list of commands.");
+                String input = getInput();
+                if (input == null) {
+                    break; // No more input possible; this is the only way to exit the event loop
+                } else if (input.length() > 0) {
+                    if (input.equals("help")) {
+                        showCommands();
+                    } else if (input.equals("new")) {
+                        doNewGame();
+                    } else if (input.equals("quit")) {
+                        writeOutput("Goodbye!");
+                        System.exit(0);
+                    } else if (input.equals("board")) {
+                        writeOutput("Current Game:");
+                    } else if (input.equals("list")) {
+                        list();
+                    } else if (input.startsWith("move")) {
+                        List<Position> positions = parseMoveParameters(input.substring("move".length()).trim());
+                        try {
+                            move(positions.get(0), positions.get(1));
+                        } catch (InvalidMoveException e) {
+                            writeOutput(e.getMessage());
+                        }
+                    } else {
+                        writeOutput("I didn't understand that.  Type 'help' for a list of commands.");
+                    }
                 }
+            } catch (InvalidInputException e) {
+                writeOutput(e.getMessage());
             }
         }
     }
@@ -132,6 +143,10 @@ public class CLI {
         }
     }
 
+    private void move(Position from, Position to) throws InvalidMoveException {
+        game.move(new Move(from, to));
+    }
+
     private void printSquares(int rowLabel, StringBuilder builder) {
         builder.append(rowLabel);
 
@@ -153,6 +168,16 @@ public class CLI {
         }
 
         builder.append(NEWLINE);
+    }
+
+    private List<Position> parseMoveParameters(String input) throws InvalidInputException {
+        String[] positions = input.split(" ", 2);
+        if (positions.length != 2) {
+            throw new InvalidInputException("Invalid move command format. Type \"help\" for details.");
+        }
+
+        // TODO: Validate colrow values.
+        return Arrays.asList(new Position(positions[0]), new Position(positions[1]));
     }
 
     public static void main(String[] args) {

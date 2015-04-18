@@ -44,6 +44,10 @@ class GameState {
         return currentPlayer;
     }
 
+    public void setPlayer(Player player) {
+        currentPlayer = player;
+    }
+
     /**
      * Call to initialize the game state into the starting positions
      */
@@ -143,7 +147,11 @@ class GameState {
      * Method to place a piece at a given position
      * @param piece The piece to place
      */
-    private void placePiece(Piece piece) {
+    public void placePiece(Piece piece) {
         positionToPieceMap.put(piece.getPosition(), piece);
+    }
+
+    public void removePiece(Piece piece) {
+        positionToPieceMap.remove(piece.getPosition());
     }
 }

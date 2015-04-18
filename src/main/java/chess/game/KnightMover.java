@@ -15,45 +15,45 @@ public class KnightMover extends AbstractPieceMover {
 
         moveUp(state, position)
                 .flatMap(m -> moveUpLeft(state, m.getTo()))
-                .filter(m -> state.isPositionFree(m.getTo()))
+                .filter(m -> canMove(state, m.getTo()))
                 .map(m -> new Move(position, m.getTo()))
                 .ifPresent(moves::add);
         moveUp(state, position)
                 .flatMap(m -> moveUpRight(state, m.getTo()))
-                .filter(m -> state.isPositionFree(m.getTo()))
+                .filter(m -> canMove(state, m.getTo()))
                 .map(m -> new Move(position, m.getTo()))
                 .ifPresent(moves::add);
 
         moveRight(state, position)
                 .flatMap(m -> moveUpRight(state, m.getTo()))
-                .filter(m -> state.isPositionFree(m.getTo()))
+                .filter(m -> canMove(state, m.getTo()))
                 .map(m -> new Move(position, m.getTo()))
                 .ifPresent(moves::add);
         moveRight(state, position)
                 .flatMap(m -> moveDownRight(state, m.getTo()))
-                .filter(m -> state.isPositionFree(m.getTo()))
+                .filter(m -> canMove(state, m.getTo()))
                 .map(m -> new Move(position, m.getTo()))
                 .ifPresent(moves::add);
 
         moveDown(state, position)
                 .flatMap(m -> moveDownLeft(state, m.getTo()))
-                .filter(m -> state.isPositionFree(m.getTo()))
+                .filter(m -> canMove(state, m.getTo()))
                 .map(m -> new Move(position, m.getTo()))
                 .ifPresent(moves::add);
         moveDown(state, position)
                 .flatMap(m -> moveDownRight(state, m.getTo()))
-                .filter(m -> state.isPositionFree(m.getTo()))
+                .filter(m -> canMove(state, m.getTo()))
                 .map(m -> new Move(position, m.getTo()))
                 .ifPresent(moves::add);
 
         moveLeft(state, position)
                 .flatMap(m -> moveUpLeft(state, m.getTo()))
-                .filter(m -> state.isPositionFree(m.getTo()))
+                .filter(m -> canMove(state, m.getTo()))
                 .map(m -> new Move(position, m.getTo()))
                 .ifPresent(moves::add);
         moveLeft(state, position)
                 .flatMap(m -> moveDownLeft(state, m.getTo()))
-                .filter(m -> state.isPositionFree(m.getTo()))
+                .filter(m -> canMove(state, m.getTo()))
                 .map(m -> new Move(position, m.getTo()))
                 .ifPresent(moves::add);
 

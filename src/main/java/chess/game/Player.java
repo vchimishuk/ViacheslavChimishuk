@@ -1,4 +1,4 @@
-package chess;
+package chess.game;
 
 /**
  * Which side of the board is being played

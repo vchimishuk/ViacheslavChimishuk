@@ -3,9 +3,7 @@ package chess.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Move;
-import chess.Position;
-import chess.pieces.Piece;
+import chess.game.pieces.Piece;
 
 public class RookMover extends AbstractPieceMover {
     @Override

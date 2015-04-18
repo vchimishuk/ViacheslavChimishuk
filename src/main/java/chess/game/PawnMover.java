@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import chess.Move;
-import chess.Player;
-import chess.Position;
-import chess.pieces.Pawn;
-import chess.pieces.Piece;
+import chess.game.pieces.Pawn;
+import chess.game.pieces.Piece;
 
 public class PawnMover extends AbstractPieceMover {
     @Override

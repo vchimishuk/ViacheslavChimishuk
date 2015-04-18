@@ -5,11 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
-import chess.Move;
-import chess.Position;
-import chess.pieces.Piece;
+import chess.game.pieces.Piece;
 
-public abstract class AbstractPieceMover implements PieceMover {
+abstract class AbstractPieceMover implements PieceMover {
     protected List<Move> getDirectionMoves(GameState state, Position start,
                                 BiFunction<GameState, Position, Optional<Move>> posGenerator)
     {

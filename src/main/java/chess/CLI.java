@@ -11,7 +11,10 @@ import java.util.Optional;
 
 import chess.game.Game;
 import chess.game.InvalidMoveException;
-import chess.pieces.Piece;
+import chess.game.Move;
+import chess.game.Player;
+import chess.game.Position;
+import chess.game.pieces.Piece;
 
 /**
  * This class provides the basic CLI interface to the Chess game.

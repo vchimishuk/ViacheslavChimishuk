@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import chess.pieces.Bishop;
-import chess.pieces.King;
-import chess.pieces.Knight;
-import chess.pieces.Pawn;
-import chess.pieces.Piece;
-import chess.pieces.Queen;
-import chess.pieces.Rook;
+import chess.game.pieces.Bishop;
+import chess.game.pieces.King;
+import chess.game.pieces.Knight;
+import chess.game.pieces.Pawn;
+import chess.game.pieces.Piece;
+import chess.game.pieces.Queen;
+import chess.game.pieces.Rook;
 
 public final class MoverFactory {
     private static final Map<Class<? extends Piece>, PieceMover> MOVERS;

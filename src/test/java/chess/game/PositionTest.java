@@ -1,8 +1,8 @@
-package chess;
+package chess.game;
 
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * Basic Unit Tests for the Position class

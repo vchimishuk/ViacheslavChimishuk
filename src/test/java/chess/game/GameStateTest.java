@@ -5,11 +5,9 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
-import chess.Player;
-import chess.Position;
-import chess.pieces.Piece;
-import chess.pieces.Queen;
-import chess.pieces.Rook;
+import chess.game.pieces.Piece;
+import chess.game.pieces.Queen;
+import chess.game.pieces.Rook;
 
 import static chess.util.AssertUtils.assertNullable;
 import static junit.framework.Assert.assertEquals;

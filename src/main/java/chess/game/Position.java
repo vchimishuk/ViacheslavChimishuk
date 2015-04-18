@@ -1,4 +1,4 @@
-package chess;
+package chess.game;
 
 /**
  * Describes a position on the Chess Board

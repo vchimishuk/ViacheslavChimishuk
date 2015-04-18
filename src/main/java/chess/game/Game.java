@@ -4,11 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import chess.Move;
-import chess.Player;
-import chess.Position;
-import chess.pieces.King;
-import chess.pieces.Piece;
+import chess.game.pieces.King;
+import chess.game.pieces.Piece;
 
 /**
  * Game object represents the game itself: its rules and actions.

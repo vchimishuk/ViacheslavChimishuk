@@ -1,7 +1,7 @@
-package chess.pieces;
+package chess.game.pieces;
 
-import chess.Player;
-import chess.Position;
+import chess.game.Player;
+import chess.game.Position;
 
 /**
  * The King class

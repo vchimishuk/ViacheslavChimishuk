@@ -7,15 +7,13 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import chess.Player;
-import chess.Position;
-import chess.pieces.Bishop;
-import chess.pieces.King;
-import chess.pieces.Knight;
-import chess.pieces.Pawn;
-import chess.pieces.Piece;
-import chess.pieces.Queen;
-import chess.pieces.Rook;
+import chess.game.pieces.Bishop;
+import chess.game.pieces.King;
+import chess.game.pieces.Knight;
+import chess.game.pieces.Pawn;
+import chess.game.pieces.Piece;
+import chess.game.pieces.Queen;
+import chess.game.pieces.Rook;
 
 /**
  * Class that represents the current state of the game.  Basically, what pieces are in which positions on the

@@ -11,7 +11,6 @@ import chess.pieces.Pawn;
 import chess.pieces.Piece;
 
 public class PawnMover extends AbstractPieceMover {
-    // TODO: Bug: It won't two move cells down first time for blacks.
     @Override
     public List<Move> getMoves(GameState state, Piece piece) {
         List<Move> moves = new ArrayList<>();
@@ -41,7 +40,7 @@ public class PawnMover extends AbstractPieceMover {
             if (pawn.isFirstMove()) {
                 moveDown(state, position)
                         .filter(m -> state.isPositionFree(m.getTo()))
-                        .flatMap(m -> moveUp(state, m.getTo()))
+                        .flatMap(m -> moveDown(state, m.getTo()))
                         .filter(m -> state.isPositionFree(m.getTo()))
                         .map(m -> new Move(position, m.getTo()))
                         .ifPresent(moves::add);

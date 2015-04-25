@@ -5,12 +5,14 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
+import chess.game.pieces.Bishop;
 import chess.game.pieces.Piece;
 import chess.game.pieces.Queen;
 import chess.game.pieces.Rook;
 
 import static chess.util.AssertUtils.assertNullable;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -55,5 +57,23 @@ public class GameStateTest {
         assertTrue("A queen should be present at d8", blackQueenO.get() instanceof Queen);
         assertTrue("A queen should be at d8", blackQueenO.get() instanceof Queen);
         assertEquals("The queen at d8 should be owned by Black", Player.Black, blackQueenO.get().getOwner());
+    }
+
+    @Test
+    public void testPieceManagement() {
+        state.reset();
+
+        Position position = new Position("d5");
+        Piece piece = new Bishop(Player.White, position);
+
+        // Place figure on the board.
+        state.placePiece(piece);
+        assertEquals("Expected bishop is missing.", Optional.of(piece), state.getPieceAt(position));
+        assertFalse(state.isPositionFree(position));
+
+        // Remove figure.
+        state.removePiece(piece);
+        assertEquals("Unexpected bishop found.", Optional.empty(), state.getPieceAt(position));
+        assertTrue(state.isPositionFree(position));
     }
 }

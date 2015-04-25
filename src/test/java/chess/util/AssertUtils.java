@@ -5,10 +5,6 @@ import java.util.Optional;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
-
-/**
- * @author Viacheslav Chimishuk <vchimishuk@yandex-team.ru>
- */
 public final class AssertUtils {
     private AssertUtils() {
 

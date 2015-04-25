@@ -18,6 +18,10 @@ public class Game {
         state.reset();
     }
 
+    public Game(GameState state) {
+        this.state = state;
+    }
+
     public List<Move> getAvailableMoves() {
         return state.getCurrentPlayerPieces().values().stream()
                 .flatMap(piece -> PieceMoverFactory.getInstance(piece).getMoves(state, piece).stream())
